@@ -2,23 +2,27 @@ class Item
 	attr_accessor :name
 	attr_accessor :cost
 
-	def initialize 
-		self.name = "Omelet"
-		self.cost = 10
+	def initialize
+		self.name = name
+		self.cost = cost
 	end
 
 	def menu_item
-		self.name + " " + self.cost.to_s
+		self.name + " " + "$" + self.cost.to_s
 	end
 
 end
 
 class Menu
-	attr_accessor :item
+	attr_accessor :items
 	attr_accessor :name
 
-	def initialize
-		self.item = []
+	def initialize 
+		self.items = []
+	end
+
+	def display_menu
+		p self.items
 	end
 
 	def add_item *item_list
@@ -26,46 +30,59 @@ class Menu
 			new_item = Item.new
 			new_item.name = item[:name]
 			new_item.cost = item[:cost]
-			self.item.push(new_item)
+			self.items.push(new_item)
 		end
 	end
 
 	def remove_item name
-		self.item.delete_if do |car|
+		self.items.delete_if do |item|
 			item.name == name
 		end
 	end
 
-	def populate_items
-		puts "Add menu items"
+	def populate_menu
+		puts "Add items to Menu"
 		hash = {}
 		keep_adding = true
 		while keep_adding
-			puts "Current Menu:"
-			p self.item.flatten
-			puts "Name?"
+			puts "Current Menu"
+			p self.items
+			puts "Name: "
 			hash[:name] = gets.chomp
-			puts "Cost?"
-			hash[:cost] = gets.chomp
+			puts "Cost: "
+			hash[:cost] = gets.chomp.to_s
 			self.add_item(hash)
-			puts "Add another item? y/n"
+			puts "Add another item y/n?"
 			answer = gets.chomp
 			if answer == 'n'
 				keep_adding = false
+				p self.items
 			end
 		end
 	end
+
 end
 
-new_menu = Menu.new
-new_menu.populate_items
+breakfast_menu = Menu.new
 
+item1 = {
+	name: "Coffee",
+	cost: 2.0
+}
 
+item2 = {
+	name: "Granola",
+	cost: 5.5
+}
 
+item3 = {
+	name: "Pancakes",
+	cost: 7.5
+}
 
+breakfast_menu.add_item(item1, item2, item3)
 
+# breakfast_menu.remove_item("Coffee")
 
-
-
-
+# breakfast_menu.remove_item("Granola")
 
