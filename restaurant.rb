@@ -10,12 +10,12 @@ class Item
 	def menu_item
 		self.name + " " + "$" + self.cost.to_s
 	end
-
 end
 
 class Menu
 	attr_accessor :items
 	attr_accessor :name
+	attr_accessor :orders
 
 	def initialize 
 		self.items = []
@@ -60,7 +60,6 @@ class Menu
 			end
 		end
 	end
-
 end
 
 breakfast_menu = Menu.new
@@ -82,7 +81,16 @@ item3 = {
 
 breakfast_menu.add_item(item1, item2, item3)
 
+
+
+		
+
+	
 # breakfast_menu.remove_item("Coffee")
 
 # breakfast_menu.remove_item("Granola")
+
+# breakfast_menu.populate_menu
+
+
 
