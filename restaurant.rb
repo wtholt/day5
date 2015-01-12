@@ -10,7 +10,7 @@ class Item
 	end
 
 	def display_item
-		puts "#{self.name}" + "-" + "#{self.cost}"
+		puts "#{self.name}" + " " + "-" + " " + "#{self.cost}"
 	end
 
 end
@@ -37,9 +37,11 @@ end
 
 class Order
 	attr_accessor :orders
+	attr_accessor :costs
 
 	def initialize 
 		self.orders = []
+		self.costs = []
 	end
 
 	def add_orders name, menu
@@ -80,11 +82,10 @@ breakfast = Menu.new
 
 breakfast.items.push(item1, item2, item3, item4)
 
-
 breakfast.display_menu
 
 new_order = Order.new
 
-new_order.add_orders("Coffee", breakfast)
+new_order.add_orders("Granola", breakfast)
 new_order.display_orders
 
