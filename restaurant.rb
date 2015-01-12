@@ -42,8 +42,8 @@ class Order
 		self.orders = []
 	end
 
-	def add_orders name
-		self.orders = self.items.select do |item|
+	def add_orders name, menu
+		self.orders = menu.items.select do |item|
 			item.name == name
 		end
 	end
@@ -85,6 +85,6 @@ breakfast.display_menu
 
 new_order = Order.new
 
-new_order.add_orders("Coffee")
+new_order.add_orders("Coffee", breakfast)
 new_order.display_orders
 
