@@ -1,96 +1,90 @@
 class Item
 	attr_accessor :name
 	attr_accessor :cost
+	attr_accessor :id
 
 	def initialize
-		self.name = name
-		self.cost = cost
+		self.name = "Default"
+		self.cost = 0
+		self.id = 0
 	end
 
-	def menu_item
-		self.name + " " + "$" + self.cost.to_s
+	def display_item
+		puts "#{self.name}" + "-" + "#{self.cost}"
 	end
+
 end
 
 class Menu
 	attr_accessor :items
-	attr_accessor :name
-	attr_accessor :orders
 
-	def initialize 
+	def initialize
 		self.items = []
 	end
 
 	def display_menu
-		p self.items
-	end
-
-	def add_item *item_list
-		item_list.each do |item|
-			new_item = Item.new
-			new_item.name = item[:name]
-			new_item.cost = item[:cost]
-			self.items.push(new_item)
+		items.each do |item|
+			puts item.display_item
 		end
 	end
 
-	def remove_item name
+	def remove id
 		self.items.delete_if do |item|
-			item.name == name
-		end
-	end
-
-	def populate_menu
-		puts "Add items to Menu"
-		hash = {}
-		keep_adding = true
-		while keep_adding
-			puts "Current Menu"
-			p self.items
-			puts "Name: "
-			hash[:name] = gets.chomp
-			puts "Cost: "
-			hash[:cost] = gets.chomp.to_s
-			self.add_item(hash)
-			puts "Add another item y/n?"
-			answer = gets.chomp
-			if answer == 'n'
-				keep_adding = false
-				p self.items
-			end
+			item.id == id
 		end
 	end
 end
 
-breakfast_menu = Menu.new
+class Order
+	attr_accessor :orders
 
-item1 = {
-	name: "Coffee",
-	cost: 2.0
-}
+	def initialize 
+		self.orders = []
+	end
 
-item2 = {
-	name: "Granola",
-	cost: 5.5
-}
+	def add_orders name
+		self.orders = self.items.select do |item|
+			item.name == name
+		end
+	end
 
-item3 = {
-	name: "Pancakes",
-	cost: 7.5
-}
+	def display_orders
+		orders.each do |order|
+			puts order.display_item
+		end
+	end
+end
 
-breakfast_menu.add_item(item1, item2, item3)
+item1 = Item.new
+item1.name = "Granola"
+item1.cost = 5
+item1.id = 1
+
+item2 = Item.new
+item2.name = "Coffee"
+item2.cost = 2
+item2.id = 2
+
+item3 = Item.new
+item3.name = "Pancakes"
+item3.cost = 7
+item3.id = 3
+
+item4 = Item.new
+item4.name = "Omelet"
+item4.cost = 7
+item4.id = 4
 
 
+breakfast = Menu.new
 
-		
-
-	
-# breakfast_menu.remove_item("Coffee")
-
-# breakfast_menu.remove_item("Granola")
-
-# breakfast_menu.populate_menu
+breakfast.items.push(item1, item2, item3, item4)
 
 
+breakfast.display_menu
+
+new_order = Order.new
+
+new_order.add_orders("Coffee")
+new_order.display_orders
 
